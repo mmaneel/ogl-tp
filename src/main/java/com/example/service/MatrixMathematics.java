@@ -105,6 +105,16 @@ public class MatrixMathematics {
         return mat;
     }
 
+    public static Matrix inverse(Matrix matrix) throws NoSquareException {
+        double det = determinant(matrix);
+        if(det==0) {
+            return null;
+        }
+
+        return (transpose(cofactor(matrix)).multiplyByConstant(1.0/det));
+
+    }
+
 
 
 }
