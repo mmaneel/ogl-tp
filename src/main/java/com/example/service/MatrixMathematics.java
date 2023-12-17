@@ -86,5 +86,35 @@ public class MatrixMathematics {
         return transposedMatrix;
     }
 
+    /*
+     * The cofactor of a matrix
+	 * @param matrix
+	 * @return
+             * @throws NoSquareException
+	 */
+
+
+    public static Matrix cofactor(Matrix matrix) throws NoSquareException {
+        Matrix mat = new Matrix(matrix.getNrows(), matrix.getNcols());
+        for (int i=0;i<matrix.getNrows();i++) {
+            for (int j=0; j<matrix.getNcols();j++) {
+                mat.setValueAt(i, j, changeSign(i) * changeSign(j) * determinant(createSubMatrix(matrix, i, j)));
+            }
+        }
+
+        return mat;
+    }
+
+    public static Matrix inverse(Matrix matrix) throws NoSquareException {
+        double det = determinant(matrix);
+        if(det==0) {
+            return null;
+        }
+
+        return (transpose(cofactor(matrix)).multiplyByConstant(1.0/det));
+
+    }
+
+
 
 }
